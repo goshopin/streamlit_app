@@ -12,9 +12,9 @@ col1, col2, col3 = st.columns([2,7,1])
 
 with col1:
 
-    st.radio('Select the type of assistant you want to operate with',
+    assistant_type = st.radio('Select the type of assistant you want to operate with',
              key='assistant type',
-             options = ['chat', 'qna', 'RAG', 'search']
+             options = ['chat', 'qna', 'KnowledgeVA', 'search', 'Task']
              )
     
     model_option = st.selectbox('Select the Model',
@@ -77,7 +77,7 @@ with col2:
 
             
                 #response = llm.invoke(user_input) # Call GPT function here
-                data = {'prompt': user_input, 'stream': True, 'model_name' : model_option} 
+                data = {'prompt': user_input, 'stream': True, 'model_name' : model_option, 'assistant_type':assistant_type} 
                 
                 url = 'http://localhost:8000/chatapp/chat'
                 response = requests.get(url,
@@ -96,4 +96,3 @@ with col2:
                 message_placeholder.markdown(f"Error: {str(e)}")
     elif user_input:
         st.warning("Please enter your OpenAI API key in the sidebar.")
-
