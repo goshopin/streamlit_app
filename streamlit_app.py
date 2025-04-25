@@ -14,7 +14,7 @@ with col1:
 
     assistant_type = st.radio('Select the type of assistant you want to operate with',
              key='assistant type',
-             options = ['chat', 'qna', 'KnowledgeVA', 'search', 'Task']
+             options = ['QnA', 'KnowledgeVA', 'search', 'Task']
              )
     
     model_option = st.selectbox('Select the Model',
@@ -25,13 +25,16 @@ with col1:
                          ),
                         placeholder='gpt2')
     st.write('Your selected model : ', model_option)
-
-    task_option = st.selectbox('What do you want to do ?',
+    task_option = None
+    if assistant_type == 'Task':
+        with st.spinner(f'Loading tasks .. '):
+            task_option = st.selectbox('What do you want to do ?',
                          ('Praphrase',
                          'Summary',
-                         'RAG',
-                         'Blog'))
-    st.write('Your selected action : ', task_option)
+                         'Shop',
+                         'Blog',
+                         'Compose Email'))
+            st.write('Your selected action : ', task_option)
 
 
 with col2:
